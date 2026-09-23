@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Một câu chuyện dành cho cậu 🌻</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#080b18;color:#fff}
+button{font:inherit}.scene{position:absolute;inset:0;display:none;overflow:hidden;background:radial-gradient(circle at 50% 25%,#303b68,#0c1126 55%,#050711)}
+.scene.active{display:block;animation:fade .8s ease}@keyframes fade{from{opacity:0}to{opacity:1}}
+.center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(900px,92vw);text-align:center;z-index:5}
+.kicker{letter-spacing:.22em;text-transform:uppercase;color:#ffd9a6;font-size:.7rem}
+h1{font-size:clamp(2rem,6vw,4.8rem);line-height:1.05;margin:16px 0}p{color:#d0d5e8;line-height:1.8}
+.btn{padding:13px 23px;border:0;border-radius:999px;background:#fff;color:#111528;font-weight:800;cursor:pointer;box-shadow:0 12px 35px #0007;transition:.25s}.btn:hover{transform:translateY(-3px)}
+.top{position:fixed;z-index:50;left:18px;right:18px;top:14px;height:4px;background:#ffffff18;border-radius:9px}.top i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffd166,#ff8fab);transition:.5s}.no{position:fixed;z-index:50;right:20px;top:23px;font-size:11px;color:#aeb5d0}
+.stars i{position:absolute;width:3px;height:3px;background:#fff;border-radius:50%;animation:twinkle 1.6s infinite alternate}@keyframes twinkle{to{opacity:.15}}
+.moon{width:115px;height:115px;margin:auto;border-radius:50%;background:#fff3c5;box-shadow:0 0 75px #fff0a066}.sun{font-size:90px;display:block;cursor:pointer;animation:float 3s ease-in-out infinite;filter:drop-shadow(0 0 25px #ffc928)}@keyframes float{50%{transform:translateY(-10px)}}
+
+/* chat */
+.phone{width:min(390px,92vw);margin:auto;background:#11182d;border:1px solid #ffffff20;border-radius:30px;padding:17px;box-shadow:0 25px 70px #0009}.notch{width:85px;height:17px;background:#05060b;border-radius:20px;margin:-6px auto 13px}.chat{height:300px;overflow:auto;padding:5px}.msg{max-width:84%;padding:10px 13px;border-radius:17px;margin:9px 0;text-align:left;font-size:.9rem}.her{background:#283049}.me{margin-left:auto;background:#e2e7ff;color:#111528}.opts{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}.opt{padding:9px 13px;border-radius:999px;border:1px solid #ffffff25;background:#ffffff0c;color:#fff;cursor:pointer}
+
+/* reveal */
+.reveal{background:radial-gradient(circle at 50% 50%,#382745,#0b1024 62%,#050711)}.lines{min-height:260px;display:flex;flex-direction:column;justify-content:center;gap:14px}.lines span{opacity:0;transform:translateY(18px);animation:in .8s forwards;color:#dce0ee;font-size:clamp(1rem,3vw,1.45rem)}.lines span:nth-child(1){animation-delay:.3s}.lines span:nth-child(2){animation-delay:1.3s}.lines span:nth-child(3){animation-delay:2.3s}.lines .big{animation-delay:3.4s;color:#ffb8ca;font-weight:900;font-size:clamp(2rem,6vw,4.2rem)}@keyframes in{to{opacity:1;transform:none}}
+
+/* reasons */
+.reasonGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:25px auto;width:min(760px,92vw)}.reasonCard{min-height:115px;padding:20px 13px;border:1px solid #ffffff18;border-radius:22px;background:#ffffff09;cursor:pointer;transition:.3s}.reasonCard:hover{transform:translateY(-5px);background:#ffffff14}.reasonCard .front{font-size:28px}.reasonCard .back{display:none;color:#ffe4c8;line-height:1.6;font-size:.9rem}.reasonCard.open .front{display:none}.reasonCard.open .back{display:block}.reasonDone{opacity:0;transition:.6s}.reasonDone.show{opacity:1}@media(max-width:650px){.reasonGrid{grid-template-columns:repeat(2,1fr)}}
+
+/* flower */
+.flowers{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:25px 0}.flower{width:135px;height:145px;border-radius:24px;border:1px solid #ffffff20;background:#ffffff09;color:#fff;cursor:pointer;transition:.25s}.flower:hover{transform:translateY(-7px)}.flower b{font-size:55px;display:block}.bloom{font-size:85px;min-height:95px;animation:bloom .7s}@keyframes bloom{from{transform:scale(.15);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* distance */
+.map{position:relative;width:min(800px,92vw);height:300px;margin:20px auto;border:1px solid #ffffff18;border-radius:28px;background:linear-gradient(120deg,#0d1930,#1b3155,#10182e);overflow:hidden}.city{position:absolute;top:50%;transform:translateY(-50%);transition:1.1s;z-index:2}.nt{left:7%}.sg{right:7%}.pin{font-size:34px}.route{position:absolute;left:17%;right:17%;top:50%;border-top:2px dashed #ffffff28}.heart{position:absolute;left:50%;top:calc(50% - 20px);transform:translate(-50%,-50%);font-size:42px;filter:drop-shadow(0 0 14px #ff7899);opacity:.55;transition:1.1s}.map.close .nt{left:29%}.map.close .sg{right:29%}.map.close .heart{opacity:1;transform:translate(-50%,-50%) scale(1.2)}
+
+/* error */
+.errorbox{width:min(650px,92vw);margin:auto;border:1px solid #ff5d7b55;background:#170b18;border-radius:24px;padding:30px}.err{font-family:monospace;color:#ff708e}.bar{height:13px;background:#ffffff0d;border-radius:20px;overflow:hidden;margin:22px 0}.bar i{display:block;height:100%;width:0;background:#ff6689;transition:.15s}
+
+/* letter */
+.envelope{width:290px;height:195px;margin:30px auto;position:relative;cursor:pointer}.env{position:absolute;inset:0;background:#f3c1a4;border-radius:8px;box-shadow:0 25px 65px #0009}.env:before{content:"";position:absolute;inset:0;background:#e6a88d;clip-path:polygon(0 0,50% 58%,100% 0);transform-origin:top;transition:1s;z-index:2}.seal{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#a83e5e;z-index:4;transition:.5s}.env.open:before{transform:rotateX(180deg)}.env.open .seal{opacity:0;transform:translate(-50%,-20%) scale(.4)}
+.overlay{position:absolute;inset:0;background:#000c;z-index:20;display:none;place-items:center;padding:4vh 3vw}.overlay.show{display:grid}.paper{width:0;height:0;overflow:hidden;background:#fff9ed;color:#382d2d;border-radius:14px;box-shadow:0 20px 100px #000;transition:1s;padding:0}.paper.open{width:min(940px,94vw);height:min(87vh,900px);padding:28px}.paperIn{height:100%;overflow:auto;padding:0 15px 30px}.paper h2{text-align:center;color:#a34758;font-size:clamp(1.7rem,4vw,2.5rem)}.paper p{color:#4b4040;font-size:clamp(1rem,2vw,1.12rem);line-height:1.95}.bigText{text-align:center!important;color:#a34758!important;font-size:clamp(1.6rem,4vw,2.4rem)!important;font-weight:900;margin:35px 0!important}.read{color:#a34758!important;text-align:center;font-weight:700}.finish{opacity:.35;pointer-events:none}.finish.ready{opacity:1;pointer-events:auto}
+
+/* end */
+.bouquet{font-size:95px;animation:float 3s infinite}.petals{position:absolute;inset:0;overflow:hidden;pointer-events:none}.petals i{position:absolute;top:-30px;animation:fall linear infinite}@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}.endline{opacity:0;transition:1s;color:#9299b0}.endline.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="top"><i id="progress"></i></div><div class="no" id="num"></div>
+
+<section class="scene active" id="s1"><div class="stars" id="stars"></div><div class="center">
+<div class="moon"></div><div style="height:18px"></div><div class="kicker">một câu chuyện nhỏ</div><h1>Dành cho cậu 🌻</h1><span class="sun" id="beginFlower">🌻</span>
+<p>Có một chuyện tui đã nghĩ khá lâu.<br>Hôm nay tui muốn kể cậu nghe.</p><button class="btn" id="begin">Bắt đầu</button>
+</div></section>
+
+<section class="scene" id="s2"><div class="center"><div class="kicker">một chút về lúc ban đầu</div><div class="phone"><div class="notch"></div><div class="chat" id="chat">
+<div class="msg her">Hôm nay cậu sao rồi? 👀</div><div class="msg me">Tui bình thường...</div><div class="msg me">À không. Có chuyện hơi khó nói :)))</div><div class="msg her">Chuyện gì?</div></div>
+<div class="opts" id="opts"><button class="opt">Nói thật luôn</button><button class="opt">Lảng sang chuyện khác</button><button class="opt">Giả vờ mất mạng 📶</button></div></div></div></section>
+
+<section class="scene reveal" id="s3"><div class="center"><div class="kicker">tui cũng không biết từ lúc nào</div><div class="lines">
+<span>Ban đầu tui chỉ nghĩ nói chuyện với cậu vui thì nói thôi.</span><span>Rồi tui bắt đầu chờ tin nhắn của cậu.</span><span>Bắt đầu nhớ những chuyện rất nhỏ về cậu.</span><span class="big">Và rồi... tui thích cậu mất rồi. ❤️</span></div><button class="btn" id="next3" style="opacity:0;transition:1s">Kể tiếp nhé</button></div></section>
+
+<section class="scene" id="s4"><div class="center"><div class="kicker">những điều tui thích ở cậu</div><h1>Chạm vào từng điều nhé.</h1><p>Mỗi ô là một điều tui thật sự muốn nói.</p><div class="reasonGrid" id="reasons">
+<div class="reasonCard"><div class="front">🌻</div><div class="back">Tui thích cách cậu làm một ngày bình thường trở nên vui hơn.</div></div>
+<div class="reasonCard"><div class="front">💬</div><div class="back">Tui thích những câu chuyện linh tinh mà cậu kể, dù đôi khi chẳng có chủ đề gì.</div></div>
+<div class="reasonCard"><div class="front">✨</div><div class="back">Tui thích những lúc cậu vui, và tự nhiên tui cũng thấy vui theo.</div></div>
+<div class="reasonCard"><div class="front">🌙</div><div class="back">Tui thích những cuộc trò chuyện kéo dài hơn một chút, vì tui chưa muốn kết thúc.</div></div>
+<div class="reasonCard"><div class="front">🫶</div><div class="back">Tui thích cảm giác được biết hôm nay cậu đã trải qua những gì.</div></div>
+<div class="reasonCard"><div class="front">❤️</div><div class="back">Và có lẽ tui thích nhất là được biết cậu nhiều hơn mỗi ngày.</div></div>
+</div><button class="btn reasonDone" id="reasonDone">Tui hiểu rồi, kể tiếp đi</button></div></section>
+
+<section class="scene" id="s5"><div class="center"><div class="kicker">tui thật sự quan tâm cậu</div><h1>Không chỉ là thích.</h1>
+<p>Những lúc cậu vui, tui muốn nghe cậu kể.</p><p>Những lúc cậu buồn, tui cũng muốn biết cậu có ổn không.</p><p>Những lúc cậu không khỏe, tui thật sự thấy lo.</p><p>Tui không nghĩ mình có quyền bước vào mọi chuyện của cậu.</p><p>Chỉ là...</p><h1 style="font-size:clamp(1.8rem,5vw,3.5rem);color:#ffb8ca">tui thật sự quan tâm cậu.</h1>
+<button class="btn" id="next5">Ừm, tui kể tiếp nha</button></div></section>
+
+<section class="scene" id="s6"><div class="center"><div class="kicker">có một điều tui nhận ra</div><h1>Nếu một ngày cậu không còn nhắn...</h1><p>Nếu một ngày tụi mình không còn nói chuyện.</p><p>Nếu sau này mỗi người đi một hướng.</p><p>Tui nghĩ...</p><h1 style="color:#ffb8ca">tui sẽ buồn.</h1><p>Vì cậu đã trở thành một người quan trọng với tui.</p><button class="btn" id="next6">Và đây là điều tui muốn nói</button></div></section>
+
+<section class="scene" id="s7"><div class="center"><div class="kicker">một chút về khoảng cách</div><h1>Nha Trang ↔ Sài Gòn</h1><p>Tui biết hiện tại tụi mình không ở gần nhau.</p><div class="map" id="map"><div class="route"></div><div class="city nt"><div class="pin">📍</div><b>Nha Trang</b></div><div class="city sg"><div class="pin">📍</div><b>Sài Gòn</b></div><div class="heart">❤️</div></div><p id="distance">Có thể sẽ có những ngày rất bận, có những lúc không thể gặp nhau.</p><button class="btn" id="closer">Nhưng mình vẫn có thể bước lại gần</button></div></section>
+
+<section class="scene" id="s8"><div class="center"><div class="kicker">và rồi...</div><div class="errorbox"><div class="err">ERROR 404: bình tĩnh không tồn tại</div><h1 style="font-size:clamp(2rem,5vw,4rem)">SYSTEM OVERLOADED :)))</h1><p>Đang cố xử lý một người thích ai đó quá mức.</p><div class="bar"><i id="bar"></i></div><button class="btn" id="fix">Bấm để xử lý</button><p id="errText">Trạng thái: đang cố tỏ ra bình thường...</p></div></div></section>
+
+<section class="scene" id="s9"><div class="center"><div class="kicker">điều tui muốn nói nhất</div><h1>Một lá thư dành cho cậu.</h1><p>Chạm vào chiếc tem trái tim.</p><div class="envelope" id="envelope"><div class="env" id="env"><div class="seal">♥</div></div></div></div>
+<div class="overlay" id="overlay"><div class="paper" id="paper"><div class="paperIn" id="paperIn">
+<h2>Gửi cậu, Yến Vy 🌻</h2>
+<p>Tui không giỏi nói mấy chuyện tình cảm đâu. Có nhiều điều tui nghĩ trong đầu rất rõ, nhưng tới lúc muốn nói thì lại chẳng biết phải bắt đầu thế nào.</p>
+<p>Nên lần này tui muốn nói thật, không vòng vo nữa.</p>
+<p class="bigText">Tui thích cậu.</p>
+<p>Tui thích những lúc cậu vui. Thích cách cậu kể những chuyện rất bình thường. Thích những cuộc trò chuyện chẳng cần có chủ đề gì đặc biệt mà tui vẫn muốn nghe thêm.</p>
+<p>Tui thích cảm giác được biết thêm một chút về cậu mỗi ngày. Một chút về điều cậu thích, điều cậu không thích, những chuyện làm cậu vui, và cả những ngày cậu không được vui cho lắm.</p>
+<p>Có thể cậu không biết, nhưng những lúc cậu không khỏe, tui cũng thấy lo. Những lúc cậu buồn, tui cũng muốn biết cậu có ổn không.</p>
+<p>Tui không nói những điều này để cậu thấy mình phải đáp lại. Tui cũng không muốn cậu trả lời vì thương tui hay vì sợ tui buồn.</p>
+<p>Tui chỉ muốn cậu biết rằng tình cảm này của tui là thật.</p>
+<p>Tui biết hiện tại tụi mình có khoảng cách. Tui ở Sài Gòn, cậu ở Nha Trang. Có thể sau này sẽ có những ngày bận rộn, những lúc không thể gặp nhau, và có những chuyện mà tụi mình chưa biết trước được.</p>
+<p>Tui cũng không muốn hứa những điều quá lớn khi mình còn chưa biết tương lai sẽ như thế nào.</p>
+<p>Nhưng nếu cậu cũng có một chút cảm giác giống tui, thì tui muốn mình từ từ tìm hiểu nhau.</p>
+<p>Không cần vội. Không cần phải quyết định ngay. Chỉ cần thật lòng với nhau một chút.</p>
+<p>Tui muốn được nghe cậu kể nhiều hơn. Muốn có thêm những cuộc trò chuyện, những lần gặp nhau, những chuyện nhỏ nhỏ mà sau này nhìn lại có thể cùng nhau nhớ.</p>
+<p>Và nếu có một ngày cậu nhận ra rằng cậu cũng muốn thử bước về phía tui một chút...</p>
+<p class="bigText">thì tui sẽ rất vui. ❤️</p>
+<p>Còn nếu cậu cần thời gian, tui cũng hiểu.</p>
+<p>Tui không cần một câu trả lời ngay lúc này.</p>
+<p>Tui chỉ mong cậu biết rằng ở đâu đó có một người thật lòng thích cậu, thật lòng quan tâm cậu, và thật lòng vui vì đã được gặp cậu.</p>
+<p>Đó là điều tui muốn cậu biết nhất.</p>
+<p class="read">↓ Đọc tới cuối rồi hãy bấm nhé ↓</p>
+<button class="btn finish" id="finish">Tui đọc xong rồi 🌻</button>
+</div></div></div></section>
+
+<section class="scene" id="s10"><div class="petals" id="petals"></div><div class="center"><div class="bouquet">🌻🌹🌷</div><div class="kicker">the end</div><h1>Cảm ơn cậu vì đã đọc hết.</h1><p>Tui không biết sau khi đọc những điều này, cậu sẽ nghĩ gì.</p><p>Nhưng tui thật sự vui vì hôm nay mình đã có thể nói ra những điều trong lòng.</p><p>Cảm ơn vì đã xuất hiện.</p><p>Cảm ơn vì những cuộc trò chuyện, những khoảnh khắc nhỏ, và vì đã trở thành một người mà tui muốn giữ lại trong câu chuyện của mình.</p><p>Tui không biết câu chuyện này sau này sẽ đi tới đâu.</p><p>Nhưng tui hy vọng...</p><h1 style="font-size:clamp(1.6rem,5vw,3.2rem);color:#ffb8ca">nó sẽ còn tiếp tục. ❤️</h1><p class="endline" id="endline">Và dù câu trả lời của cậu là gì, tui vẫn mong cậu luôn vui.</p></div></section>
+
+<script>
+const S=[...document.querySelectorAll(".scene")],bar=document.getElementById("progress"),num=document.getElementById("num");let cur=0;
+function go(n){S[cur].classList.remove("active");cur=n;S[cur].classList.add("active");bar.style.width=(cur/(S.length-1)*100)+"%";num.textContent=String(cur+1).padStart(2,"0")+" / "+S.length}
+for(let i=0;i<90;i++){let x=document.createElement("i");x.style.left=Math.random()*100+"%";x.style.top=Math.random()*100+"%";x.style.animationDelay=Math.random()*2+"s";document.getElementById("stars").appendChild(x)}
+document.getElementById("begin").onclick=()=>go(1);document.getElementById("beginFlower").onclick=()=>go(1);
+document.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{let c=document.getElementById("chat");document.getElementById("opts").remove();let m=document.createElement("div");m.className="msg me";m.textContent=b.textContent;c.appendChild(m);setTimeout(()=>{let r=document.createElement("div");r.className="msg her";r.textContent="Ừm... vậy kể tui nghe đi 👀";c.appendChild(r)},400);setTimeout(()=>go(2),1100)});
+setTimeout(()=>{document.getElementById("next3").style.opacity=1},4800);document.getElementById("next3").onclick=()=>go(3);
+let cards=[...document.querySelectorAll(".reasonCard")],opened=0;cards.forEach(x=>x.onclick=()=>{if(!x.classList.contains("open")){x.classList.add("open");opened++}if(opened===cards.length)document.getElementById("reasonDone").classList.add("show")});document.getElementById("reasonDone").onclick=()=>go(4);
+document.getElementById("next5").onclick=()=>go(5);document.getElementById("next6").onclick=()=>go(6);
+document.getElementById("closer").onclick=()=>{document.getElementById("map").classList.add("close");document.getElementById("distance").textContent="Khoảng cách có thể xa, nhưng nếu cả hai đều muốn thì mình vẫn có thể tìm cách bước lại gần.";document.getElementById("closer").textContent="Ừm... đi tiếp nhé";document.getElementById("closer").onclick=()=>go(7)};
+let e=0;document.getElementById("fix").onclick=()=>{e=Math.min(100,e+20);document.getElementById("bar").style.width=e+"%";document.getElementById("errText").textContent=e<60?"Trạng thái: vẫn còn cứu được...":e<100?"Trạng thái: hình như càng sửa càng thích...":"Chẩn đoán: hết cứu.";if(e===100)setTimeout(()=>go(8),800)};
+document.getElementById("envelope").onclick=()=>{document.getElementById("env").classList.add("open");setTimeout(()=>{document.getElementById("overlay").classList.add("show");setTimeout(()=>document.getElementById("paper").classList.add("open"),70)},600)};
+let paper=document.getElementById("paperIn"),finish=document.getElementById("finish");paper.addEventListener("scroll",()=>{if(paper.scrollTop+paper.clientHeight>=paper.scrollHeight-30)finish.classList.add("ready")});finish.onclick=()=>go(9);
+for(let i=0;i<28;i++){let p=document.createElement("i");p.textContent=["🌸","✨","🌻","🌹"][Math.floor(Math.random()*4)];p.style.left=Math.random()*100+"%";p.style.fontSize=(12+Math.random()*13)+"px";p.style.animationDuration=(5+Math.random()*7)+"s";p.style.animationDelay=Math.random()*5+"s";document.getElementById("petals").appendChild(p)}
+setTimeout(()=>document.getElementById("endline").classList.add("show"),2500);
+</script>
+</body>
+</html>
